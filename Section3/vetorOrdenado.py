@@ -45,6 +45,24 @@ class VetorOrdenado:
                 return -1
             if self.valores[i] == valor:
                 return i 
+    
+    def pesquisa_binaria(self, valor):
+        limite_superior = self.ultima_posicao
+        limite_inferior = 0
+
+        while True:
+            posicao_atual = int((limite_superior + limite_inferior)/2)
+            if self.valores[posicao_atual] == valor:
+                return posicao_atual
+            elif limite_inferior > limite_superior:
+                return -1
+            else:                
+                if self.valores[posicao_atual] > valor:
+                    limite_superior = posicao_atual - 1
+                if self.valores[posicao_atual] < valor:
+                    limite_inferior = posicao_atual + 1
+
+        
             
     def exclui(self, valor):
         posicao = self.pesquisa(valor)
@@ -79,7 +97,11 @@ vetor.insere(8)
 vetor.exclui(8)
 vetor.imprime()
 
-print(vetor.pesquisa(4))
+# print(vetor.pesquisa(4))
 
-vetor.exclui(4)
-vetor.imprime()
+print(vetor.pesquisa_binaria(1))
+print(vetor.pesquisa_binaria(4))
+print(vetor.pesquisa_binaria(8))
+
+# vetor.exclui(4)
+# vetor.imprime()
