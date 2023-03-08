@@ -28,7 +28,7 @@ class FilaCircular:
 
     def desinfileirar(self):
         if self.__fila_vazia():
-            print('A fila já está vazia')
+            print('A fila já está vazia!')
             return
 
         temp = self.valores[self.inicio]
