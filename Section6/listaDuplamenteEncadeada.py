@@ -59,6 +59,28 @@ class ListaDuplamenteEncadeada:
         self.ultimo = self.ultimo.anterior
         return temp
 
+    def excluir_valor(self, valor):
+        if self.__lista_vazia():
+            print("A lista está vazia!")
+            return 
+        atual = self.primeiro
+        while atual.valor != valor:
+            atual = atual.proximo
+            if atual == None:
+                return
+        if atual == self.primeiro:
+            self.primeiro = atual.proximo
+        else:
+            atual.anterior.proximo = atual.proximo
+
+        if atual == self.ultimo:
+            self.ultimo = atual.anterior
+        else:
+            atual.proximo.anterior = atual.anterior
+
+        return atual
+
+
     def mostra_frente(self):
         atual = self.primeiro
         while atual != None:
@@ -73,17 +95,35 @@ class ListaDuplamenteEncadeada:
 
 lista = ListaDuplamenteEncadeada()
 
+# lista.insere_inicio(1)
+# lista.insere_inicio(2)
+# print("Frente")
+# lista.mostra_frente()
+# print("Trás")
+# lista.mostra_tras()
+# print("----------")
+# lista.insere_final(3)
+# lista.insere_final(4)
+# print("Frente")
+# lista.mostra_frente()
+# lista.excluir_final()
+# print("trás")
+# lista.mostra_tras()
+
 lista.insere_inicio(1)
 lista.insere_inicio(2)
-print("Frente")
-lista.mostra_frente()
-print("Trás")
-lista.mostra_tras()
-print("----------")
 lista.insere_final(3)
 lista.insere_final(4)
-print("Frente")
 lista.mostra_frente()
-lista.excluir_final()
-print("trás")
-lista.mostra_tras()
+print("------------")
+lista.excluir_valor(3)
+lista.mostra_frente()
+print("------------")
+lista.excluir_valor(2)
+lista.mostra_frente()
+print("------------")
+lista.excluir_valor(4)
+lista.mostra_frente()
+print("------------")
+lista.excluir_valor(6)
+lista.mostra_frente()
