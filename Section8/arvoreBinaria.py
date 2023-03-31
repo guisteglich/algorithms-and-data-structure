@@ -31,6 +31,17 @@ class ArvoreBinaria:
                         pai.direita = novo
                         # self.ligacoes.append(str(pai.valor) + '->' + str(novo.valor))
                         return
+                    
+    def pesquisa(self, valor):
+        atual = self.raiz
+        while atual.valor != valor:
+            if atual.valor > valor:
+                atual = atual.esquerda
+            else:
+                atual = atual.direita
+            if atual == None:
+                return None
+        return atual
                 
 arvore = ArvoreBinaria()
 
@@ -47,6 +58,8 @@ arvore.inserir(84)
 arvore.inserir(79)
 
 
-print(arvore.raiz.direita.valor)
+# print(arvore.raiz.direita.valor)
 
-print(arvore.raiz.esquerda.valor)
+print(arvore.raiz.esquerda)
+
+print(arvore.pesquisa(30))
