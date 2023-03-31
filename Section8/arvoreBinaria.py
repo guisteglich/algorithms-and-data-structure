@@ -42,13 +42,22 @@ class ArvoreBinaria:
             if atual == None:
                 return None
         return atual
-                
+    
+    def pre_ordem(self, no):
+        if no != None:
+            print(no.valor)
+            self.pre_ordem(no.esquerda)
+            self.pre_ordem(no.direita)
+
+
+
 arvore = ArvoreBinaria()
 
 arvore.inserir(53)
 arvore.inserir(30)
 arvore.inserir(14)
 arvore.inserir(39)
+arvore.inserir(9)
 arvore.inserir(23)
 arvore.inserir(34)
 arvore.inserir(49)
@@ -63,3 +72,5 @@ arvore.inserir(79)
 print(arvore.raiz.esquerda)
 
 print(arvore.pesquisa(30))
+
+arvore.pre_ordem(arvore.raiz)
