@@ -49,6 +49,18 @@ class ArvoreBinaria:
             self.pre_ordem(no.esquerda)
             self.pre_ordem(no.direita)
 
+    def ordem(self, no):
+        if no != None:
+            self.ordem(no.esquerda)
+            print(no.valor)
+            self.ordem(no.direita)
+
+    def pos_ordem(self, no):
+        if no != None:
+            self.pos_ordem(no.esquerda)
+            self.pos_ordem(no.direita)
+            print(no.valor)
+
 
 
 arvore = ArvoreBinaria()
@@ -73,4 +85,6 @@ print(arvore.raiz.esquerda)
 
 print(arvore.pesquisa(30))
 
-arvore.pre_ordem(arvore.raiz)
+# arvore.pre_ordem(arvore.raiz)
+
+arvore.ordem(arvore.raiz)
