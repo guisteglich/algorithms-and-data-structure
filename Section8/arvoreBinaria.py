@@ -61,6 +61,34 @@ class ArvoreBinaria:
             self.pos_ordem(no.direita)
             print(no.valor)
 
+    def excluir(self, valor):
+        if self.raiz == None:
+            print("A árvore está vazia")
+            return
+        atual = self.raiz
+        pai = self.raiz
+        eh_esquerda = False
+        while valor != atual.valor:
+            pai = atual
+            if atual.valor > valor:
+                eh_esquerda = True
+                atual = atual.esquerda
+            else:
+                eh_esquerda = False
+                atual = atual.direita
+            
+            if atual == None:
+                return False
+            
+        if atual.esquerda == None and atual.direita == None:
+            if atual == self.raiz:
+                self.raiz = None
+            elif eh_esquerda:
+                pai.esquerda = None
+            else:
+                pai.direita = None
+
+
 
 
 arvore = ArvoreBinaria()
@@ -81,10 +109,15 @@ arvore.inserir(79)
 
 # print(arvore.raiz.direita.valor)
 
-print(arvore.raiz.esquerda)
+# print(arvore.raiz.esquerda)
 
-print(arvore.pesquisa(30))
+# print(arvore.pesquisa(30))
 
 # arvore.pre_ordem(arvore.raiz)
+
+arvore.ordem(arvore.raiz)
+print("--------------------")
+
+arvore.excluir(49)
 
 arvore.ordem(arvore.raiz)
