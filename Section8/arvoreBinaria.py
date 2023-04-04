@@ -65,6 +65,8 @@ class ArvoreBinaria:
         if self.raiz == None:
             print("A árvore está vazia")
             return
+        
+        # Busca pelo valor que será excluído
         atual = self.raiz
         pai = self.raiz
         eh_esquerda = False
@@ -80,8 +82,7 @@ class ArvoreBinaria:
             if atual == None:
                 return False
 
-        # O nó a ser apagado é um nó folha
-            
+        # O nó a ser apagado é um nó folha 
         if atual.esquerda == None and atual.direita == None:
             if atual == self.raiz:
                 self.raiz = None
@@ -107,6 +108,35 @@ class ArvoreBinaria:
                 pai.esquerda = atual.direita
             else:
                 pai.direita = atual.direita
+
+        # O nó possui dois filhos
+        else:
+            sucessor = self.sucessor(atual)
+
+            if self.raiz == atual:
+                self.raiz = sucessor
+            elif eh_esquerda:
+                pai.esquerda = sucessor
+            else:
+                pai.direita = sucessor
+
+        return True
+
+    def sucessor(self, no):
+        sucessor = no
+        pai_sucessor = no
+        atual = no.direita
+
+        while atual != None:
+            pai_sucessor = sucessor
+            sucessor = atual 
+            atual = atual.esquerda
+
+        if sucessor != no.direita:
+            pai_sucessor.esquerda = sucessor.direita
+            sucessor.direita = no.direita
+        
+        return sucessor
 
 
 arvore = ArvoreBinaria()
@@ -136,16 +166,19 @@ arvore.inserir(79)
 arvore.ordem(arvore.raiz)
 print("--------------------")
 
-arvore.excluir(49)
+arvore.excluir(14)
 
 arvore.ordem(arvore.raiz)
 print("--------------------")
 
-arvore.excluir(84)
+arvore.excluir(39)
 
 arvore.ordem(arvore.raiz)
 print("--------------------")
 
 # arvore.excluir(34)
 
-arvore.excluir(39)
+arvore.excluir(30)
+
+arvore.ordem(arvore.raiz)
+print("--------------------")
