@@ -79,6 +79,8 @@ class ArvoreBinaria:
             
             if atual == None:
                 return False
+
+        # O nó a ser apagado é um nó folha
             
         if atual.esquerda == None and atual.direita == None:
             if atual == self.raiz:
@@ -88,7 +90,23 @@ class ArvoreBinaria:
             else:
                 pai.direita = None
 
+        # O nó a ser apagado possui só um filho a esquerda
+        elif atual.direita == None:
+            if atual == self.raiz:
+                self.raiz = atual.esquerda
+            elif eh_esquerda:
+                pai.esquerda = atual.esquerda
+            else:
+                pai.direita = atual.esquerda
 
+        # O nó a ser apagado possui só um filho a direita
+        elif atual.esquerda == None:
+            if atual == self.raiz:
+                self.raiz = atual.direita
+            elif eh_esquerda:
+                pai.esquerda = atual.direita
+            else:
+                pai.direita = atual.direita
 
 
 arvore = ArvoreBinaria()
@@ -121,3 +139,13 @@ print("--------------------")
 arvore.excluir(49)
 
 arvore.ordem(arvore.raiz)
+print("--------------------")
+
+arvore.excluir(84)
+
+arvore.ordem(arvore.raiz)
+print("--------------------")
+
+# arvore.excluir(34)
+
+arvore.excluir(39)
