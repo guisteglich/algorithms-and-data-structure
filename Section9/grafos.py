@@ -1,3 +1,5 @@
+import numpy as np
+
 class Vertice:
     def __init__(self, rotulo):
         self.rotulo = rotulo
@@ -78,7 +80,7 @@ class Grafo:
   bucharest.adiciona_adjacente(Adjacente(pitesti, 101))
   bucharest.adiciona_adjacente(Adjacente(giurgiu, 90))
 
-import numpy as np
+# Classe Pilha para a busca em profundidade
 class Pilha:
   def __init__(self, capacidade):
     self.__capacidade = capacidade
@@ -121,6 +123,8 @@ class Pilha:
       return self.__valores[self.__topo]
     else:
       return -1
+
+# Busca em profundidade
 class BuscaProfundidade:
   def __init__(self, inicio):
     self.inicio = inicio
@@ -141,9 +145,82 @@ class BuscaProfundidade:
     print('Desempilhou: {}'.format(self.pilha.desempilhar().rotulo))
     print()
 
+
+# Classe Fila para busca em largura
+class FilaCircular:
+  
+  def __init__(self, capacidade):
+    self.capacidade = capacidade
+    self.inicio = 0
+    self.final = -1
+    self.numero_elementos = 0
+    
+    # Mudança no tipo de dado
+    self.valores = np.empty(self.capacidade, dtype=object)
+
+  def __fila_vazia(self):
+    return self.numero_elementos == 0
+
+  def __fila_cheia(self):
+    return self.numero_elementos == self.capacidade
+
+  def enfileirar(self, valor):
+    if self.__fila_cheia():
+      print('A fila está cheia')
+      return
+    
+    if self.final == self.capacidade - 1:
+      self.final = -1
+    self.final += 1
+    self.valores[self.final] = valor
+    self.numero_elementos += 1
+
+  def desenfileirar(self):
+    if self.__fila_vazia():
+      print('A fila já está vazia')
+      return
+
+    temp = self.valores[self.inicio]
+    self.inicio += 1
+    if self.inicio == self.capacidade - 1:
+      self.inicio = 0
+    self.numero_elementos -= 1
+    return temp
+
+  def primeiro(self):
+    if self.__fila_vazia():
+      return -1
+    return self.valores[self.inicio]
+  
+# Busca em largura
+class BuscaLargura:
+  def __init__(self, inicio):
+    self.inicio = inicio
+    self.inicio.visitado = True
+    self.fila = FilaCircular(20)
+    self.fila.enfileirar(inicio)
+
+  def buscar(self):
+    primeiro = self.fila.primeiro()
+    print('-------')
+    print('Primeiro da fila: {}'.format(primeiro.rotulo))
+    temp = self.fila.desenfileirar()
+    print('Desenfileirou: {}'.format(temp.rotulo))
+    for adjacente in primeiro.adjacentes:
+      print('Primeiro era {}. {} já foi visitado? {}'.format(temp.rotulo, adjacente.vertice.rotulo, adjacente.vertice.visitado))
+      if adjacente.vertice.visitado == False:
+        adjacente.vertice.visitado = True
+        self.fila.enfileirar(adjacente.vertice)
+        print('Enfileirou: {}'.format(adjacente.vertice.rotulo))
+    if self.fila.numero_elementos > 0:
+      self.buscar()
+
 grafo = Grafo()
 
 # grafo.arad.mostra_adjacentes()
 
-busca_profundidade = BuscaProfundidade(grafo.arad)
+# busca_profundidade = BuscaProfundidade(grafo.arad)
+# busca_profundidade.buscar()
+
+busca_profundidade = BuscaLargura(grafo.arad)
 busca_profundidade.buscar()
